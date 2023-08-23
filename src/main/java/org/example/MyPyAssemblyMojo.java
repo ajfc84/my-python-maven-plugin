@@ -21,10 +21,10 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 
 
-@Mojo(name = "run")
-public class MyPythonMojo extends AbstractMojo {
+@Mojo(name = "assembly")
+public class MyPyAssemblyMojo extends AbstractMojo {
 
     public void execute() throws MojoExecutionException {
-        getLog().info("Hello world");
+        getLog().info("Packaging Hello world");
     }
 }
