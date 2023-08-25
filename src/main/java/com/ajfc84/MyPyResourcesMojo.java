@@ -34,7 +34,7 @@ public class MyPyResourcesMojo extends AbstractMojo {
     MavenProject project;
     public void execute() throws MojoExecutionException {
         String source_dir = project.getBasedir() + "/src/main/resources/";
-        String destination_dir = project.getBuild().getDirectory();
+        String destination_dir = project.getBuild().getDirectory() + "/python/";
         File source = new File(source_dir);
         File destination = new File(destination_dir);
         try {
@@ -44,4 +44,5 @@ public class MyPyResourcesMojo extends AbstractMojo {
             getLog().error("Failed to copy dir!");
         }
     }
+
 }

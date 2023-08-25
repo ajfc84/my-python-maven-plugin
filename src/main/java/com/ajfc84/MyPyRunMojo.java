@@ -46,4 +46,5 @@ public class MyPyRunMojo extends AbstractMojo {
             getLog().error("Failed to copy dir!");
         }
     }
+
 }

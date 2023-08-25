@@ -9,8 +9,6 @@
                     <process-resources>com.ajfc84:my-python-maven-plugin:resources</process-resources>
                     <compile>com.ajfc84:my-python-maven-plugin:run</compile>
                     <package>com.ajfc84:my-python-maven-plugin:zip</package>
-                    <install>org.apache.maven.plugins:maven-install-plugin:install</install>
-                    <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
                 </phases>
             </configuration>
         </component>

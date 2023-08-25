@@ -32,7 +32,7 @@ import java.util.zip.ZipOutputStream;
 
 
 @Mojo(name = "zip")
-public class MyPyAssemblyMojo extends AbstractMojo {
+public class MyPyZipMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     MavenProject project;
 
