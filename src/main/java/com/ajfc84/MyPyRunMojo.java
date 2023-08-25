@@ -1,4 +1,4 @@
-package org.example;
+package com.ajfc84;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
@@ -36,14 +36,14 @@ public class MyPyRunMojo extends AbstractMojo {
     String baseDir;
     public void execute() throws MojoExecutionException {
         String source_dir = project.getBasedir() + "/src/main/python/";
-        String destination_dir = project.getBuild().getDirectory() + "/python/src/" + project.getArtifactId();
+        String destination_dir = project.getBuild().getDirectory();
         File source = new File(source_dir);
         File destination = new File(destination_dir);
         try {
             FileUtils.copyToDirectory(source, destination);
             getLog().info("Copying source files from " + source_dir + " to " + destination_dir);
         } catch (IOException e) {
-            getLog().info("Failed to copy dir!");
+            getLog().error("Failed to copy dir!");
         }
     }
 }
