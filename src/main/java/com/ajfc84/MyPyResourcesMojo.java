@@ -33,8 +33,8 @@ public class MyPyResourcesMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     MavenProject project;
     public void execute() throws MojoExecutionException {
-        String source_dir = project.getBasedir() + "/src/main/resources/";
-        String destination_dir = project.getBuild().getDirectory() + "/python/";
+        String source_dir = project.getBuild().getSourceDirectory();
+        String destination_dir = project.getBuild().getDirectory() + "/sources/";
         File source = new File(source_dir);
         File destination = new File(destination_dir);
         try {

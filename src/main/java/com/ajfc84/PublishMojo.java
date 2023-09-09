@@ -16,34 +16,34 @@ package com.ajfc84;
  * limitations under the License.
  */
 
-import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.util.Map;
 
 
-@Mojo(name = "run", defaultPhase = LifecyclePhase.COMPILE)
-public class MyPyRunMojo extends AbstractMojo {
+@Mojo(name = "publish")
+public class PublishMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     MavenProject project;
-    @Parameter(property = "baseDir")
-    String baseDir;
+
     public void execute() throws MojoExecutionException {
-        String source_dir = project.getBuild().getSourceDirectory();
-        String destination_dir = project.getBuild().getDirectory();
-        File source = new File(source_dir);
-        File destination = new File(destination_dir);
+        ProcessBuilder builder = new ProcessBuilder("./ops.sh", "--publish");
+        Map<String, String> env = builder.environment();
+        builder.directory(new File(project.getBuild().getDirectory() + "/sources/"));
+        builder.redirectErrorStream(true);
+        builder.inheritIO();
         try {
-            FileUtils.copyToDirectory(source, destination);
-            getLog().info("Copying source files from " + source_dir + " to " + destination_dir);
+            Process process = builder.start();
+            process.waitFor();
         } catch (IOException e) {
-            getLog().error("Failed to copy dir!");
+            getLog().error(e.getLocalizedMessage());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 

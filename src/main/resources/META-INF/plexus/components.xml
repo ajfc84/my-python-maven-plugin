@@ -2,12 +2,11 @@
     <components>
         <component>
             <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
-            <role-hint>py</role-hint>
+            <role-hint>zip</role-hint>
             <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
             <configuration>
                 <phases>
                     <process-resources>com.ajfc84:my-python-maven-plugin:resources</process-resources>
-                    <compile>com.ajfc84:my-python-maven-plugin:run</compile>
                     <package>com.ajfc84:my-python-maven-plugin:zip</package>
                 </phases>
             </configuration>

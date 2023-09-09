@@ -39,7 +39,7 @@ public class MyPyZipMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         String artifactId = project.getArtifactId();
         String version = project.getVersion();
-        String source  = project.getBuild().getDirectory() + "/python/";
+        String source  = project.getBuild().getDirectory() + "/sources/";
         String target = project.getBuild().getDirectory() + "/" + artifactId + "-" + version + ".zip";
 
         try (ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(target))) {
@@ -55,7 +55,7 @@ public class MyPyZipMojo extends AbstractMojo {
         getLog().info("Archiving workdir " + workdir);
         try {
             for (File f : Objects.requireNonNull(new File(workdir).listFiles())) {
-                String zipName = workdir.replace(project.getBuild().getDirectory() + "/python/", "") + f.getName();
+                String zipName = workdir.replace(project.getBuild().getDirectory() + "/sources/", "") + f.getName();
                 if (f.isHidden())
                     continue;
                 else if (f.isDirectory()) {
