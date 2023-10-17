@@ -32,14 +32,16 @@ import java.util.zip.ZipOutputStream;
 
 
 @Mojo(name = "zip")
-public class MyPyZipMojo extends AbstractMojo {
+public class ZipMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     MavenProject project;
+
+    private static final String BUILD_DIR = "/build/";
 
     public void execute() throws MojoExecutionException {
         String artifactId = project.getArtifactId();
         String version = project.getVersion();
-        String source  = project.getBuild().getDirectory() + "/sources/";
+        String source  = project.getBuild().getDirectory() + BUILD_DIR;
         String target = project.getBuild().getDirectory() + "/" + artifactId + "-" + version + ".zip";
 
         try (ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(target))) {
@@ -55,7 +57,7 @@ public class MyPyZipMojo extends AbstractMojo {
         getLog().info("Archiving workdir " + workdir);
         try {
             for (File f : Objects.requireNonNull(new File(workdir).listFiles())) {
-                String zipName = workdir.replace(project.getBuild().getDirectory() + "/sources/", "") + f.getName();
+                String zipName = workdir.replace(project.getBuild().getDirectory() + BUILD_DIR, "") + f.getName();
                 if (f.isHidden())
                     continue;
                 else if (f.isDirectory()) {

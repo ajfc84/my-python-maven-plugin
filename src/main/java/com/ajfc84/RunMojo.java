@@ -28,18 +28,20 @@ import java.io.File;
 import java.io.IOException;
 
 
-@Mojo(name = "resources", defaultPhase = LifecyclePhase.PROCESS_RESOURCES)
-public class MyPyResourcesMojo extends AbstractMojo {
+@Mojo(name = "run", defaultPhase = LifecyclePhase.COMPILE)
+public class RunMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     MavenProject project;
+    @Parameter(property = "baseDir")
+    String baseDir;
     public void execute() throws MojoExecutionException {
         String source_dir = project.getBuild().getSourceDirectory();
-        String destination_dir = project.getBuild().getDirectory() + "/sources/";
+        String destination_dir = project.getBuild().getDirectory();
         File source = new File(source_dir);
         File destination = new File(destination_dir);
         try {
-            FileUtils.copyDirectory(source, destination);
-            getLog().info("Copying resource files from " + source_dir + " to " + destination_dir);
+            FileUtils.copyToDirectory(source, destination);
+            getLog().info("Copying source files from " + source_dir + " to " + destination_dir);
         } catch (IOException e) {
             getLog().error("Failed to copy dir!");
         }
